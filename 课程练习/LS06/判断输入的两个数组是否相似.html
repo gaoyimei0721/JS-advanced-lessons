@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Untitled Document</title>
+    
+</head>
+<body>
+    <script type="text/javascript">   
+        /*
+         * param1 Array 
+         * param2 Array
+         * return true or false
+         */
+        function arraysSimilar(arr1, arr2){
+            //判断是否是数组
+            if(!(arr1 instanceof Array && arr2 instanceof Array)){
+                return false;
+            }
+            //判断数组长度是否相等
+            if(arr1.length != arr2.length){
+                return false;
+            }
+            //判断数组成员类型是否相同
+            var arrType1 = [];
+            var arrType2 = [];
+            for(var i=0; i<arr1.length; i++){
+                //x.call(y)即用x对象代替y对象
+                //Object.prototype.toString.call( ); 输出类型
+                arrType1.push(Object.prototype.toString.call(arr1));
+                arrType2.push(Object.prototype.toString.call(arr2));
+            }
+            //sort()排序:如果调用该方法时没有使用参数，将按字母顺序对数组中的元素进行排序，说得更精确点，是按照字符编码的顺序进行排序。
+            if(arrType1.sort().toString() == arrType2.sort().toString()){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+    </script>
+    <script src="testData.js"></script>
+</body>
+</html>
