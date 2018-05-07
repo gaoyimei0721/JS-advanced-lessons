@@ -1,5 +1,6 @@
 //数组原型方法（迭代-非破坏性-检测方法）thisValue可以指定callback中的this
 // Array.prototype.forEach(callback,thisValue?) //注意并不返回新的数组
+//forEach() 方法用于调用数组的每个元素，并将元素传递给回调函数。
 var arr1= [2,5,8];
 arr1.forEach(function (a) {
     if(a>3){
@@ -9,6 +10,20 @@ arr1.forEach(function (a) {
     }
 });
 console.log(arr1);
+//2 "不大于3"
+//5 "大于3"
+//8 "大于3"
+// [2, 5, 8]
+
+var arr1=[2,5,8];
+var arr2=[1,6,7];
+var arr3=[];
+arr1.forEach(function(a,i){
+	//console.log(a,i,this);
+	arr3[i]=a>arr2[i]?a:arr2[i];
+},arr2);
+console.log(arr3);
+//[2, 6, 8]
 
 // Array.prototype.every(callback,thisValue?) //返回一个布尔类型 若有不满足的将不再进行后续判断直接返回false
 var arr2= [2,5,8];//[2,4,6]
@@ -68,9 +83,35 @@ function printArgs(prev,cur,i) {
 }
 var arr4 = ["a","b","c","d"];
 console.log(arr4.reduce(printArgs));
+/*
+prev a ,cur: b ,i: 1
+prev ab ,cur: c ,i: 2
+prev abc ,cur: d ,i: 3
+abcd
+*/
 console.log(arr4.reduce(printArgs,"x"));
+/*
+prev x ,cur: a ,i: 0
+prev xa ,cur: b ,i: 1
+prev xab ,cur: c ,i: 2
+prev xabc ,cur: d ,i: 3
+xabcd
+*/
 console.log(arr4.reduceRight(printArgs));
+/*
+prev d ,cur: c ,i: 2
+prev dc ,cur: b ,i: 1
+prev dcb ,cur: a ,i: 0
+dcba
+*/
 console.log(arr4.reduceRight(printArgs,"x"));
+/*
+prev x ,cur: d ,i: 3
+prev xd ,cur: c ,i: 2
+prev xdc ,cur: b ,i: 1
+prev xdcb ,cur: a ,i: 0
+xdcba
+*/
 
 //思考案例：
 var flattened = [[0, 1], [2, 3], [4, 5]].reduce(function(a, b) {
